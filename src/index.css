@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@theme {
+  --color-background: #f8f9fc;
+  --color-foreBackground: #eeeeee;
+  --color-secBackground: #ead196;
+  --color-primary: #7d0a0a;
+  --color-secondary: #bf3131;
+  --color-buttonCancel: #e52020;
+  --color-buttonSubmit: #fdfaf6;
+  --color-fontBold: #424554;
+  --color-fontMedium: #2b2d33;
+}
