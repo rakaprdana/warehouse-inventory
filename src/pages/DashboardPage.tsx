@@ -10,7 +10,7 @@ export const DashboardPage = () => {
     <>
       <Navbar />
       <main>
-        <section className="border border-blue-600 flex justify-center items-center">
+        <section className="flex justify-center items-center">
           <div className="bg-[#992626] flex flex-col w-3/4 py-8 px-4 rounded-2xl ml-4">
             <h1 className="font-bold text-white text-3xl mb-3">Hello, User</h1>
             <button

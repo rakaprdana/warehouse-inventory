@@ -56,8 +56,8 @@ export const Table: React.FC<TableProps> = ({
   filteredData,
   renderAction,
 }) => (
-  <div className="border border-yellow-300 overflow-y-auto max-h-80 rounded-xl">
-    <table className="min-w-full divide-y divide-gray-300 shadow-lg">
+  <div className="overflow-y-auto max-h-80 rounded-xl">
+    <table className="border border-foreBackground min-w-full divide-y divide-foreBackground shadow-lg rounded-2xl">
       <TableHeader headers={headers} />
       <tbody className="bg-white divide-y divide-gray-200">
         {filteredData.map((data, index) => (
@@ -72,7 +72,7 @@ export const Table: React.FC<TableProps> = ({
           <tr>
             <td
               colSpan={headers.length}
-              className="px-6 py-4 text-center text-sm text-gray-500"
+              className="px-6 py-4 text-center text-sm text-fontMedium"
             >
               Data tidak ditemukan.
             </td>

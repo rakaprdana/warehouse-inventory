@@ -51,14 +51,6 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             <FormInput
-              label="Kode Barang"
-              type="text"
-              name="code"
-              value={formData.code}
-              onChange={handleChange}
-              required
-            />
-            <FormInput
               label="Nama Barang"
               type="text"
               name="name"

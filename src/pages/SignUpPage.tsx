@@ -19,7 +19,7 @@ export const SignUpPage = () => {
           <h2 className="text-3xl font-bold text-center mb-6 text-fontBold">
             Sign Up
           </h2>
-          <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="space-y-6">
             <FormInput
               type="text"
               placeholder="Your name"

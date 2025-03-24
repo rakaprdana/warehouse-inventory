@@ -18,7 +18,7 @@ export const SignInPage = () => {
           <h2 className="text-3xl font-bold text-center mb-6 text-fontBold">
             Login
           </h2>
-          <div className="flex flex-col items-center justify-center space-y-6">
+          <div className="space-y-6">
             <FormInput
               type="email"
               placeholder="Email Address"

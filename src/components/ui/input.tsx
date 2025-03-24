@@ -20,7 +20,7 @@ export const FormInput: React.FC<FormSelectProps> = ({
           name={name}
           value={value}
           onChange={onChange}
-          className="w-full max-w-xl p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-foreBackground focus:border-transparent transition duration-200"
+          className="w-full max-w-xl p-3 border border-foreBackground rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-foreBackground focus:border-transparent transition duration-200"
           required={required}
         >
           <option value="" disabled>
@@ -45,7 +45,7 @@ export const FormInput: React.FC<FormSelectProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full max-w-xl p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-foreBackground focus:border-transparent transition duration-200"
+        className="w-full max-w-xl p-3 border border-foreBackground rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-foreBackground focus:border-transparent transition duration-200"
         required={required}
       />
     </div>
