@@ -7,6 +7,8 @@ export type Item = {
   name: string;
   quantity: number;
   category: string;
+  in: string;
+  out: string;
   [key: string]: string | number;
 };
 
@@ -36,19 +38,28 @@ export const TableRow: React.FC<{
   data: Item;
   tableData: string[];
   renderAction?: (data: Item) => React.ReactNode;
-}> = ({ data, tableData, renderAction }) => (
-  <tr className="hover:bg-gray-50">
-    {tableData.map((key, idx) => (
-      <td
-        key={idx}
-        className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-      >
-        {data[key]}
-      </td>
-    ))}
-    {renderAction && <td className="space-x-8">{renderAction(data)}</td>}
-  </tr>
-);
+}> = ({ data, tableData, renderAction }) => {
+  const formatDate = (value: string | number) => {
+    if (typeof value === "string" && value.includes("T")) {
+      return value.split("T")[0];
+    }
+    return value;
+  };
+
+  return (
+    <tr className="hover:bg-gray-50">
+      {tableData.map((key, idx) => (
+        <td
+          key={idx}
+          className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+        >
+          {formatDate(data[key])}
+        </td>
+      ))}
+      {renderAction && <td className="space-x-8">{renderAction(data)}</td>}
+    </tr>
+  );
+};
 
 export const Table: React.FC<TableProps> = ({
   headers,

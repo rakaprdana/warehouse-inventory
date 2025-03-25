@@ -1,34 +1,31 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button } from "../components/ui/button";
 import { FormInput } from "../components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
-import axios, { AxiosError } from "axios";
+import { Link } from "react-router-dom";
 import { useAuth } from "../middleware/auth-context";
+import { SignInType } from "../interface/formdata";
+import { useAuthUser } from "../hooks/useAuth";
 
 export const SignInPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const API = import.meta.env.VITE_API_BASE_URL;
+  const [formData, setFormData] = useState<SignInType>({
+    name: "",
+    email: "",
+    password: "",
+  });
   const { login } = useAuth();
-  const navigate = useNavigate();
-
+  const { signIn } = useAuthUser();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(`${API}/auth/signin`, {
-        email,
-        password,
-      });
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        login(response.data.token);
-        navigate("/dashboard");
-      }
-    } catch (error: unknown) {
-      if (error instanceof AxiosError && error.response?.data.errors) {
-        alert(error.response?.data?.message || "SignUp failed");
-      }
-    }
+    signIn(formData, login);
+  };
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -44,15 +41,17 @@ export const SignInPage = () => {
           <div className="space-y-6">
             <FormInput
               type="email"
+              name="email"
               placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
             />
             <FormInput
               type="password"
+              name="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
             />
             <Button text="Sign In" type="submit" />
           </div>

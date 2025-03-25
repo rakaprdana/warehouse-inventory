@@ -1,58 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "./button";
-import axios from "axios";
-import { useForm } from "../../hooks/useForm";
 import { FormInput } from "./input";
-import { Item } from "../../axios/api";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const initialFormData = {
-  code: "",
-  stack: "",
-  name: "",
-  quantity: 0,
-  category: "",
-  in: "",
-};
+import { useForm } from "../../hooks/useForm";
+import { useNewForm } from "../../hooks/useNewForm";
+import { ModalProps } from "../../interface/input";
+import { categoryOptions } from "../constants/category-option";
+import { AxiosError } from "axios";
+import { initialFormData } from "../constants/form-const";
 
 export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const [items, setItems] = useState<Item[]>([]);
   const { formData, handleChange, resetForm } = useForm(initialFormData);
-  const API = import.meta.env.VITE_API_BASE_URL;
-  const token = localStorage.getItem("token");
+  const { handleSubmit } = useNewForm();
 
-  const handleSubmit = async () => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      const response = await axios.post(`${API}/items`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setItems((prevItems) => [...prevItems, response.data]);
-      resetForm();
-    } catch (err) {
-      console.error("Error adding item:", err);
+      await handleSubmit(formData, resetForm);
+      onClose();
+    } catch (error) {
+      if (error instanceof AxiosError && error.response?.data.errors) {
+        alert(error.response?.data?.message || "SignUp failed");
+      }
     }
   };
 
   if (!isOpen) return null;
 
-  const categoryOptions = [
-    { value: "Elektronik", label: "Elektronik" },
-    { value: "Peralatan Rumah Tangga", label: "Peralatan Rumah Tangga" },
-    { value: "Alat Tulis", label: "Alat Tulis" },
-    { value: "Lainnya", label: "Lainnya" },
-  ];
-
   return (
     <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
         <h2 className="text-2xl font-bold mb-6">Tambah Barang Baru</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <div className="space-y-4">
             <FormInput
               label="Nama Barang"
@@ -95,8 +73,8 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="mt-6 flex justify-end space-x-4">
-            <Button text={"Save"} variant="submit" />
-            <Button text={"Cancel"} variant="delete" onClick={onClose} />
+            <Button text="Save" variant="submit" />
+            <Button text="Cancel" variant="delete" onClick={onClose} />
           </div>
         </form>
       </div>

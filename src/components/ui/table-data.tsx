@@ -4,26 +4,24 @@ import { Button } from "./button";
 import { FormInput } from "./input";
 import { Item, Table } from "./table/table-ui";
 import ViewModal from "./detail";
-import axios from "axios";
+import { deleteItem, getAllItems } from "../../axios/api";
 
 const TableData: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [filterText, setFilterText] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const API = import.meta.env.VITE_API_BASE_URL;
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API}/items`);
-        setItems(response.data);
+        setItems(await getAllItems());
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, [API]);
+  }, []);
 
   const filteredData: Item[] = items.filter(
     (item) =>
@@ -51,11 +49,7 @@ const TableData: React.FC = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${API}/items/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await deleteItem(id || "", token || "");
       setItems((prevItems) => prevItems.filter((item) => item._id !== id));
       alert("Data berhasil dihapus!");
     } catch (error) {
@@ -78,7 +72,12 @@ const TableData: React.FC = () => {
       />
     </div>
   );
-
+  const formatDate = (value?: string) => {
+    if (value && value.includes("T")) {
+      return value.split("T")[0];
+    }
+    return value || "-";
+  };
   return (
     <div className="container mx-auto space-y-4 p-4">
       <FormInput
@@ -94,28 +93,48 @@ const TableData: React.FC = () => {
         filteredData={filteredData}
         renderAction={renderAction}
       />
-
       {/* Modal akan muncul jika ada selectedId */}
       {selectedItem && (
         <ViewModal isOpen={true} onClose={closeModal} title="Detail Item">
-          <div>
-            <p>
-              <strong>Kode Barang:</strong> {selectedItem.code}
-            </p>
-            <p>
-              <strong>Nama:</strong> {selectedItem.name}
-            </p>
-            <p>
-              <strong>Kuantitas:</strong> {selectedItem.quantity}
-            </p>
-          </div>
-          <div>
-            <p>
-              <strong>Barang Masuk:</strong> {selectedItem.in}
-            </p>
-            <p>
-              <strong>Barang Keluar:</strong> {selectedItem.out}
-            </p>
+          <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 w-full max-w-md">
+            <h2 className="text-maroon-700 text-xl font-bold border-b pb-2 mb-4">
+              Detail Barang
+            </h2>
+            <div className="space-y-2">
+              <p className="text-gray-700">
+                <span className="font-semibold text-maroon-800">
+                  Kode Barang:
+                </span>{" "}
+                {selectedItem.code}
+              </p>
+              <p className="text-gray-700">
+                <span className="font-semibold text-maroon-800">Nama:</span>{" "}
+                {selectedItem.name}
+              </p>
+              <p className="text-gray-700">
+                <span className="font-semibold text-maroon-800">
+                  Kuantitas:
+                </span>{" "}
+                {selectedItem.quantity}
+              </p>
+            </div>
+            <h2 className="text-maroon-700 text-xl font-bold border-b pb-2 mt-6 mb-4">
+              Pergerakan Barang
+            </h2>
+            <div className="space-y-2">
+              <p className="text-gray-700">
+                <span className="font-semibold text-maroon-800">
+                  Barang Masuk:
+                </span>{" "}
+                {formatDate(selectedItem.in)}
+              </p>
+              <p className="text-gray-700">
+                <span className="font-semibold text-maroon-800">
+                  Barang Keluar:
+                </span>{" "}
+                {formatDate(selectedItem.out)}
+              </p>
+            </div>
           </div>
         </ViewModal>
       )}
