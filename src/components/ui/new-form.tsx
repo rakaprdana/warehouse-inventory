@@ -23,11 +23,15 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [items, setItems] = useState<Item[]>([]);
   const { formData, handleChange, resetForm } = useForm(initialFormData);
   const API = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem("token");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     try {
-      const response = await axios.post(`${API}/items`, formData);
+      const response = await axios.post(`${API}/items`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setItems((prevItems) => [...prevItems, response.data]);
       resetForm();
     } catch (err) {

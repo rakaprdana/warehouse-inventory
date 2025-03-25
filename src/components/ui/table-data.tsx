@@ -11,6 +11,7 @@ const TableData: React.FC = () => {
   const [filterText, setFilterText] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const API = import.meta.env.VITE_API_BASE_URL;
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +23,7 @@ const TableData: React.FC = () => {
       }
     };
     fetchData();
-  }, [API]); // Fetch data hanya sekali
+  }, [API]);
 
   const filteredData: Item[] = items.filter(
     (item) =>
@@ -40,7 +41,7 @@ const TableData: React.FC = () => {
   };
 
   const closeModal = () => {
-    setSearchParams({}); // Hapus _id dari URL
+    setSearchParams({});
   };
 
   const handleDelete = async (id: string) => {
@@ -50,8 +51,12 @@ const TableData: React.FC = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`${API}/items/${id}`);
-      setItems((prevItems) => prevItems.filter((item) => item._id !== id)); // Hapus dari state
+      await axios.delete(`${API}/items/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setItems((prevItems) => prevItems.filter((item) => item._id !== id));
       alert("Data berhasil dihapus!");
     } catch (error) {
       console.error("Error deleting item:", error);
