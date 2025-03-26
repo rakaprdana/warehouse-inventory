@@ -21,7 +21,7 @@ const TableData: React.FC = () => {
       }
     };
     fetchData();
-  });
+  }); //fix dependencies
 
   const filteredData: Item[] = items.filter(
     (item) =>
