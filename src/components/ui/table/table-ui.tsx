@@ -20,7 +20,7 @@ type TableProps = {
 };
 
 export const TableHeader: React.FC<{ headers: string[] }> = ({ headers }) => (
-  <thead className="sticky top-0 z-10 bg-[#800000]">
+  <thead className="sticky top-0 bg-primary">
     <tr>
       {headers.map((head, index) => (
         <th

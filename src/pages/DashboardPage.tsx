@@ -12,7 +12,7 @@ export const DashboardPage = () => {
       <Navbar />
       <main>
         <section className="flex justify-center items-center mt-8">
-          <div className="bg-[#992626] flex flex-col w-3/4 py-8 px-4 rounded-2xl ml-4">
+          <div className="bg-secondary flex flex-col w-3/4 py-8 px-4 rounded-2xl ml-4">
             <h1 className="font-bold text-white text-3xl mb-3">
               Welcome to Dashboard
             </h1>

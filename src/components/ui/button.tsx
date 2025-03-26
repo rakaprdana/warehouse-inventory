@@ -16,7 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
   const getVariantClass = () => {
     switch (variant) {
       case "delete":
-        return "w-full max-w-28 bg-red-600 hover:bg-red-700 text-white"; // Warna merah untuk delete
+        return "w-full max-w-28 bg-[#bf3131] hover:bg-red-700 text-white"; // Warna merah untuk delete
       case "submit":
         return "w-28 bg-white border border-foreBackground text-gray-700 hover:bg-gray-50"; // Warna putih untuk submit
       case "primary":

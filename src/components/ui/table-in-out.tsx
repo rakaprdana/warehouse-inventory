@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FormInput } from "./input";
 import { Item, Table } from "./table/table-ui";
-import axios from "axios";
+import { getAllItems } from "../../axios/api";
 
 export const TableDataInOut: React.FC = () => {
   const [filterText, setFilterText] = useState("");
@@ -10,12 +10,10 @@ export const TableDataInOut: React.FC = () => {
   const headers = ["Code", "Name", "In", "Out"];
   const tableData = ["code", "name", "in", "out"];
 
-  const API = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API}/items`);
-        setItems(response.data);
+        setItems(await getAllItems());
       } catch (error) {
         console.log(error);
       }
