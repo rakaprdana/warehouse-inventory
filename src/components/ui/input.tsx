@@ -37,7 +37,7 @@ export const FormInput: React.FC<FormSelectProps> = ({
   }
 
   return (
-    <div>
+    <div className="mb-4">
       <label className="block text-sm font-medium text-gray-700">{label}</label>
       <input
         placeholder={placeholder}
@@ -45,7 +45,7 @@ export const FormInput: React.FC<FormSelectProps> = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full max-w-xl p-3 border border-foreBackground rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-foreBackground focus:border-transparent transition duration-200"
+        className="bg-customWhite w-full max-w-xl p-3 border border-foreBackground rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-foreBackground focus:border-transparent transition duration-200"
         required={required}
       />
     </div>

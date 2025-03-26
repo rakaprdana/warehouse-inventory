@@ -28,49 +28,53 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+      <div className="bg-background rounded-lg shadow-lg w-3/4 p-6">
         <h2 className="text-2xl font-bold mb-6">Tambah Barang Baru</h2>
         <form onSubmit={onSubmit}>
-          <div className="space-y-4">
-            <FormInput
-              label="Nama Barang"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-            <FormInput
-              label="Lokasi Rak Barang"
-              type="text"
-              name="stack"
-              value={formData.stack}
-              onChange={handleChange}
-              required
-            />
-            <FormInput
-              label="Kuantitas Barang"
-              type="number"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              required
-            />
-            <FormInput
-              label="Kategori"
-              type="select"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              options={categoryOptions}
-              required
-            />
-            <FormInput
-              label="Tanggal Masuk"
-              type="date"
-              name="in"
-              value={formData.in}
-              onChange={handleChange}
-            />
+          <div className="flex gap-8">
+            <section className="w-full">
+              <FormInput
+                label="Nama Barang"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+              <FormInput
+                label="Lokasi Rak Barang"
+                type="text"
+                name="stack"
+                value={formData.stack}
+                onChange={handleChange}
+                required
+              />
+              <FormInput
+                label="Kuantitas Barang"
+                type="number"
+                name="quantity"
+                value={formData.quantity}
+                onChange={handleChange}
+                required
+              />
+            </section>
+            <section className="w-3/4">
+              <FormInput
+                label="Kategori"
+                type="select"
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                options={categoryOptions}
+                required
+              />
+              <FormInput
+                label="Tanggal Masuk"
+                type="date"
+                name="in"
+                value={formData.in}
+                onChange={handleChange}
+              />
+            </section>
           </div>
           <div className="mt-6 flex justify-end space-x-4">
             <Button text="Save" variant="submit" />
