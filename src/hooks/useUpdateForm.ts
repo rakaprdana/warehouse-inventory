@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { fetchItemById } from "../axios/api";
-import { ItemTypes } from "../interface/items";
+import { ItemTypes } from "../types/items";
 
 export const useUpdateForm = (isOpen: boolean) => {
   const [searchParams] = useSearchParams();

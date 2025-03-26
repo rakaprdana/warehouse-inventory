@@ -3,8 +3,8 @@ import { updateItem } from "../../axios/api";
 import { Button } from "./button";
 import { FormInput } from "./input";
 import { useUpdateForm } from "../../hooks/useUpdateForm";
-import { ModalProps } from "../../interface/input";
 import { categoryOptions } from "../constants/category-option";
+import { ModalProps } from "../../types/modal";
 
 export const UpdateForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const { id, formData, loading, error, handleChange, setError, setLoading } =
@@ -46,14 +46,14 @@ export const UpdateForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <div className="flex justify-between space-y-4 space-x-8  ">
             <section className="w-1/2">
               <FormInput
-                label="Nama Barang"
+                label="Name Item"
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
               />
               <FormInput
-                label="Lokasi Rak Barang"
+                label="Stack Item"
                 type="text"
                 name="stack"
                 value={formData.stack}
@@ -61,7 +61,7 @@ export const UpdateForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 required
               />
               <FormInput
-                label="Kuantitas Barang"
+                label="Quantity Item"
                 type="number"
                 name="quantity"
                 value={formData.quantity}
@@ -71,7 +71,7 @@ export const UpdateForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             </section>
             <section className="w-1/2">
               <FormInput
-                label="Kategori"
+                label="Category Item"
                 type="select"
                 name="category"
                 value={formData.category}
@@ -80,14 +80,14 @@ export const UpdateForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 required
               />
               <FormInput
-                label="Tanggal Masuk"
+                label="In Date"
                 type="date"
                 name="in"
                 value={formData.in}
                 onChange={handleChange}
               />
               <FormInput
-                label="Tanggal Keluar"
+                label="Out Date"
                 type="date"
                 name="out"
                 value={formData.out}

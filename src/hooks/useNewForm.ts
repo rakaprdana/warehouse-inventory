@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { createNewItem } from "../axios/api";
-import { ItemTypes } from "../interface/items";
+import { ItemTypes } from "../types/items";
 import { Item } from "../components/ui/table/table-ui";
 
 export const useNewForm = () => {

@@ -10,8 +10,8 @@ export const DashboardPage = () => {
   return (
     <>
       <Navbar />
-      <main className="bg-[url('/assets/background3.jpg')] bg-cover bg-center">
-        <section className="flex justify-center items-center">
+      <main className="bg-[url('/assets/background3.jpg')] bg-cover bg-center h-screen">
+        <section className="flex justify-center items-center pt-8">
           <div className="bg-gradient-to-r from-secondary to-primary flex flex-col w-3/4 py-10 px-6 rounded-3xl shadow-xl ml-4">
             <h1 className="font-extrabold text-white text-4xl mb-6 tracking-wide">
               Welcome to Dashboard

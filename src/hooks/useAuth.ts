@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { SignInType, SignUpType } from "../interface/formdata";
+import { SignInType, SignUpType } from "../types/formdata";
 
 const API = import.meta.env.VITE_API_BASE_URL;
 

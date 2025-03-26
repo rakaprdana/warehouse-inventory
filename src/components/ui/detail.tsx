@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "./button";
 import { UpdateForm } from "./update-form";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  children: React.ReactNode;
-}
+import { ModalProps } from "../../types/modal";
 
 const ViewModal: React.FC<ModalProps> = ({
   isOpen,

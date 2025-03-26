@@ -3,7 +3,7 @@ import { Button } from "../components/ui/button";
 import { FormInput } from "../components/ui/input";
 import { Link } from "react-router-dom";
 import { useAuth } from "../middleware/auth-context";
-import { SignInType } from "../interface/formdata";
+import { SignInType } from "../types/formdata";
 import { useAuthUser } from "../hooks/useAuth";
 
 export const SignInPage = () => {

@@ -49,10 +49,7 @@ export const TableRow: React.FC<{
   return (
     <tr className="hover:bg-gray-50">
       {tableData.map((key, idx) => (
-        <td
-          key={idx}
-          className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-        >
+        <td key={idx} className="p-6 whitespace-nowrap text-md text-fontMedium">
           {formatDate(data[key])}
         </td>
       ))}

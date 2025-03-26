@@ -3,7 +3,7 @@ import { Button } from "../components/ui/button";
 import { FormInput } from "../components/ui/input";
 import { Link } from "react-router-dom";
 import { useAuth } from "../middleware/auth-context";
-import { SignUpType } from "../interface/formdata";
+import { SignUpType } from "../types/formdata";
 import { useAuthUser } from "../hooks/useAuth";
 
 export const SignUpPage = () => {

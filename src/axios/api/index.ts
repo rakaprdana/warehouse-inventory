@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ItemTypes } from "../../interface/items";
+import { ItemTypes } from "../../types/items";
 
 const API = import.meta.env.VITE_API_BASE_URL;
 

@@ -3,10 +3,10 @@ import { Button } from "./button";
 import { FormInput } from "./input";
 import { useForm } from "../../hooks/useForm";
 import { useNewForm } from "../../hooks/useNewForm";
-import { ModalProps } from "../../interface/input";
 import { categoryOptions } from "../constants/category-option";
 import { AxiosError } from "axios";
 import { initialFormData } from "../constants/form-const";
+import { ModalProps } from "../../types/modal";
 
 export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const { formData, handleChange, resetForm } = useForm(initialFormData);
@@ -34,14 +34,14 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           <div className="flex gap-8">
             <section className="w-full">
               <FormInput
-                label="Nama Barang"
+                label="Name Item"
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
               />
               <FormInput
-                label="Lokasi Rak Barang"
+                label="Stack Item"
                 type="text"
                 name="stack"
                 value={formData.stack}
@@ -49,7 +49,7 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 required
               />
               <FormInput
-                label="Kuantitas Barang"
+                label="Quantity Item"
                 type="number"
                 name="quantity"
                 value={formData.quantity}
@@ -59,7 +59,7 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             </section>
             <section className="w-3/4">
               <FormInput
-                label="Kategori"
+                label="Category"
                 type="select"
                 name="category"
                 value={formData.category}
@@ -68,7 +68,7 @@ export const NewForm: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 required
               />
               <FormInput
-                label="Tanggal Masuk"
+                label="In date"
                 type="date"
                 name="in"
                 value={formData.in}

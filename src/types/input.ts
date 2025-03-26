@@ -10,8 +10,3 @@ export type FormSelectProps = {
   options?: { value: string; label: string }[];
   placeholder?: string;
 };
-
-export type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};

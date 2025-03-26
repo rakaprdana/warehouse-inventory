@@ -32,7 +32,7 @@ export const TableDataInOut: React.FC = () => {
       <FormInput
         value={filterText}
         onChange={(e) => setFilterText(e.target.value)}
-        placeholder={"Cari Barang"}
+        placeholder={"Search Item"}
         type={"text"}
         name={""}
       />

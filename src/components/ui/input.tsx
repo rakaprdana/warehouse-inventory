@@ -1,4 +1,4 @@
-import { FormSelectProps } from "../../interface/input";
+import { FormSelectProps } from "../../types/input";
 
 export const FormInput: React.FC<FormSelectProps> = ({
   placeholder,
@@ -24,7 +24,7 @@ export const FormInput: React.FC<FormSelectProps> = ({
           required={required}
         >
           <option value="" disabled>
-            Pilih {label}
+            Choose {label}
           </option>
           {options?.map((option) => (
             <option key={option.value} value={option.value}>

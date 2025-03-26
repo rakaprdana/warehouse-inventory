@@ -5,10 +5,13 @@ import { FormInput } from "./input";
 import { Item, Table } from "./table/table-ui";
 import ViewModal from "./detail";
 import { deleteItem, getAllItems } from "../../axios/api";
+import ConfirmModal from "./confirm-modal";
 
 const TableData: React.FC = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [filterText, setFilterText] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const token = localStorage.getItem("token");
 
@@ -21,7 +24,7 @@ const TableData: React.FC = () => {
       }
     };
     fetchData();
-  }); //fix dependencies
+  });
 
   const filteredData: Item[] = items.filter(
     (item) =>
@@ -31,30 +34,35 @@ const TableData: React.FC = () => {
   );
 
   // Ambil _id dari URL
-  const selectedId = searchParams.get("id");
-  const selectedItem = items.find((item) => item._id === selectedId);
+  const selectedItem = items.find(
+    (item) => item._id === searchParams.get("id")
+  );
 
   const openModal = (id: string) => {
-    setSearchParams({ id }); // Tambahkan _id ke URL
+    setSearchParams({ id });
   };
 
   const closeModal = () => {
     setSearchParams({});
   };
 
-  const handleDelete = async (id: string) => {
-    const confirmDelete = window.confirm(
-      "Apakah Anda yakin ingin menghapus data ini?"
-    );
-    if (!confirmDelete) return;
+  const confirmDelete = (id: string) => {
+    setSelectedId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!selectedId) return;
 
     try {
-      await deleteItem(id || "", token || "");
-      setItems((prevItems) => prevItems.filter((item) => item._id !== id));
-      alert("Data berhasil dihapus!");
+      await deleteItem(selectedId, token || "");
+      setItems((prevItems) =>
+        prevItems.filter((item) => item._id !== selectedId)
+      );
     } catch (error) {
       console.error("Error deleting item:", error);
-      alert("Gagal menghapus data.");
+    } finally {
+      setIsModalOpen(false);
     }
   };
 
@@ -68,22 +76,24 @@ const TableData: React.FC = () => {
       <Button
         variant="delete"
         text="Delete"
-        onClick={() => handleDelete(data._id)}
+        onClick={() => confirmDelete(data._id)}
       />
     </div>
   );
+
   const formatDate = (value?: string) => {
     if (value && value.includes("T")) {
       return value.split("T")[0];
     }
     return value || "-";
   };
+
   return (
     <div className="container mx-auto space-y-4 p-4">
       <FormInput
         value={filterText}
         onChange={(e) => setFilterText(e.target.value)}
-        placeholder="Cari Barang"
+        placeholder="Search Item"
         type="text"
         name=""
       />
@@ -93,51 +103,49 @@ const TableData: React.FC = () => {
         filteredData={filteredData}
         renderAction={renderAction}
       />
-      {/* Modal akan muncul jika ada selectedId */}
       {selectedItem && (
         <ViewModal isOpen={true} onClose={closeModal} title="Detail Item">
           <div className="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 w-full max-w-md">
             <h2 className="text-maroon-700 text-xl font-bold border-b pb-2 mb-4">
-              Detail Barang
+              Item Details
             </h2>
             <div className="space-y-2">
               <p className="text-gray-700">
                 <span className="font-semibold text-maroon-800">
-                  Kode Barang:
+                  Item Code:
                 </span>{" "}
                 {selectedItem.code}
               </p>
               <p className="text-gray-700">
-                <span className="font-semibold text-maroon-800">Nama:</span>{" "}
+                <span className="font-semibold text-maroon-800">Name:</span>{" "}
                 {selectedItem.name}
               </p>
               <p className="text-gray-700">
-                <span className="font-semibold text-maroon-800">
-                  Kuantitas:
-                </span>{" "}
+                <span className="font-semibold text-maroon-800">Quantity:</span>{" "}
                 {selectedItem.quantity}
               </p>
             </div>
             <h2 className="text-maroon-700 text-xl font-bold border-b pb-2 mt-6 mb-4">
-              Pergerakan Barang
+              Item Movements
             </h2>
             <div className="space-y-2">
               <p className="text-gray-700">
-                <span className="font-semibold text-maroon-800">
-                  Barang Masuk:
-                </span>{" "}
+                <span className="font-semibold text-maroon-800">Incoming:</span>{" "}
                 {formatDate(selectedItem.in)}
               </p>
               <p className="text-gray-700">
-                <span className="font-semibold text-maroon-800">
-                  Barang Keluar:
-                </span>{" "}
+                <span className="font-semibold text-maroon-800">Outgoing:</span>{" "}
                 {formatDate(selectedItem.out)}
               </p>
             </div>
           </div>
         </ViewModal>
       )}
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };

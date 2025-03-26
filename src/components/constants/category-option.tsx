@@ -1,8 +1,8 @@
-import { CategoryOption } from "../../interface/items";
+import { CategoryOption } from "../../types/items";
 
 export const categoryOptions: CategoryOption[] = [
-  { value: "Elektronik", label: "Elektronik" },
-  { value: "Peralatan Rumah Tangga", label: "Peralatan Rumah Tangga" },
-  { value: "Alat Tulis", label: "Alat Tulis" },
-  { value: "Lainnya", label: "Lainnya" },
+  { value: "Electronics", label: "Electronics" },
+  { value: "Home Appliances", label: "Home Appliances" },
+  { value: "Stationery", label: "Stationery" },
+  { value: "Others", label: "Others" },
 ];
